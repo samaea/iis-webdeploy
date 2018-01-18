@@ -258,8 +258,23 @@
             "settings": {
               "ConfigurationFunction": "WindowsWebServer.ps1\\WindowsWebServer",
               "ModulesUrl": "[concat('https://raw.githubusercontent.com/mikepfeiffer/iis-webdeploy/master', '/DSC/WindowsWebServer.zip')]",
-              "Properties": {
-              }
+ "Properties": [
+                    {
+                        "Name": "patToken",
+                        "Value": "[parameters('patToken')]",
+                        "TypeName": "System.String"
+                    },
+                    {
+                        "Name": "projectName",
+                        "Value": "[parameters('projectName')]",
+                        "TypeName": "System.String"
+                    },
+                    {
+                        "Name": "vstsUrl",
+                        "Value": "[parameters('vstsUrl')]",
+                        "TypeName": "System.String"
+                    }
+                ]
             },
             "protectedSettings": {
             }
