@@ -275,7 +275,7 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "ConfigurationFunction": "WindowsWebServer.ps1\\WindowsWebServer",
-              "ModulesUrl": "[concat('https://raw.githubusercontent.com/mikepfeiffer/iis-webdeploy/master', '/DSC/WindowsWebServer.zip')]",
+              "ModulesUrl": "[concat('https://raw.githubusercontent.com/samaea/iis-webdeploy/master', '/DSC/WindowsWebServer.zip')]",
  "Properties": [
                     {
                         "Name": "patToken",
