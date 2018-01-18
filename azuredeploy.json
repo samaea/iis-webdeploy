@@ -10,6 +10,24 @@
       },
       "defaultValue": "sysadmin"
     },
+    "patToken": {
+    "type": "securestring",
+            "metadata": {
+                "description": "Input the VSTS PAT Token."
+            }
+    },
+    "projectName": {
+    "type": "string",
+            "metadata": {
+                "description": "Input the VSTS Project Name."
+            }
+    },
+    "vstsUrl": {
+    "type": "string",
+            "metadata": {
+                "description": "Input the VSTS URL."
+            }
+    },
     "adminPassword": {
       "type": "securestring",
       "metadata": {
