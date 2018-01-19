@@ -11,7 +11,7 @@
       "defaultValue": "sysadmin"
     },
     "patToken": {
-    "type": "securestring",
+    "type": "string",
             "metadata": {
                 "description": "Input the VSTS PAT Token."
             }
