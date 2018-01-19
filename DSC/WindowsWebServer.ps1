@@ -1,17 +1,5 @@
 Configuration WindowsWebServer {
 
-param(
-        [Parameter(Mandatory=$true)]
-        [string] $patToken,
-	
-	[Parameter(Mandatory=$true)]
-        [string] $projectName,
-	
-        [Parameter(Mandatory=$true)]
-        [string] $vstsUrl
-	
-    )
-
     Import-DscResource -ModuleName PSDesiredStateConfiguration, xWebAdministration
 
     Node localhost {
