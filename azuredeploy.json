@@ -45,7 +45,7 @@
             "metadata": {
                 "description": "Input the VSTS Deployment Group Name."
             },
-			"defaultValue": ""
+			"defaultValue": "iis-agent"
     },
     "adminPassword": {
       "type": "securestring",
