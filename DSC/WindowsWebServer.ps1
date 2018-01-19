@@ -1,4 +1,4 @@
-﻿Configuration WindowsWebServer {
+Configuration WindowsWebServer {
 
 param(
         [Parameter(Mandatory=$true)]
@@ -112,7 +112,6 @@ param(
                 $source = "http://download.microsoft.com/download/0/1/D/01DC28EA-638C-4A22-A57B-4CEF97755C6C/WebDeploy_amd64_en-US.msi"
                 $dest = "C:\WindowsAzure\WebDeploy_amd64_en-US.msi"
                 Invoke-WebRequest $source -OutFile $dest
-		$ErrorActionPreference="Stop";If(-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent() ).IsInRole( [Security.Principal.WindowsBuiltInRole] “Administrator”)){ throw "Run command in Administrator PowerShell Prompt"};If(-NOT (Test-Path $env:SystemDrive\'vstsagent')){mkdir $env:SystemDrive\'vstsagent'}; cd $env:SystemDrive\'vstsagent'; for($i=1; $i -lt 100; $i++){$destFolder="A"+$i.ToString();if(-NOT (Test-Path ($destFolder))){mkdir $destFolder;cd $destFolder;break;}}; $agentZip="$PWD\agent.zip";(New-Object Net.WebClient).DownloadFile( 'https://vstsagentpackage.azureedge.net/agent/2.126.0/vsts-agent-win-x64-2.126.0.zip', $agentZip);Add-Type -AssemblyName System.IO.Compression.FileSystem;[System.IO.Compression.ZipFile]::ExtractToDirectory( $agentZip, "$PWD");.\config.cmd --deploymentgroup --deploymentgroupname "IIS DG" --agent $env:COMPUTERNAME+"-agent" --runasservice --work '_work' --url $vstsUrl --projectname $projectName --auth PAT --token $patToken --adddeploymentgrouptags --deploymentgrouptags 'web' --pool default --windowslogonaccount 'NT AUTHORITY\NETWORK SERVICE' --replace; Remove-Item $agentZip;
             }
             GetScript = { @{Result = "WebDeployDownload"} }
 		    DependsOn = "[WindowsFeature]WebServerRole"
