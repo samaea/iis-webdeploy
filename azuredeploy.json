@@ -22,11 +22,30 @@
                 "description": "Input the VSTS Project Name."
             }
     },
-    "vstsUrl": {
+    "vstsAccountName": {
     "type": "string",
             "metadata": {
-                "description": "Input the VSTS URL."
+                "description": "Input the VSTS Account Name."
             }
+    },
+    "deploymentGroup": {
+    "type": "string",
+            "metadata": {
+                "description": "Input the VSTS Deployment Group Name."
+            }
+    },
+    "tags": {
+    "type": "string",
+            "metadata": {
+                "description": "Input the tags for the VSTS machine. For example, web."
+            }
+    },
+    "agentName": {
+    "type": "string",
+            "metadata": {
+                "description": "Input the VSTS Deployment Group Name."
+            },
+			"defaultValue": ""
     },
     "adminPassword": {
       "type": "securestring",
@@ -276,28 +295,38 @@
             "settings": {
               "ConfigurationFunction": "WindowsWebServer.ps1\\WindowsWebServer",
               "ModulesUrl": "[concat('https://raw.githubusercontent.com/samaea/iis-webdeploy/master', '/DSC/WindowsWebServer.zip')]",
- "Properties": [
-                    {
-                        "Name": "patToken",
-                        "Value": "[parameters('patToken')]",
-                        "TypeName": "System.String"
-                    },
-                    {
-                        "Name": "projectName",
-                        "Value": "[parameters('projectName')]",
-                        "TypeName": "System.String"
-                    },
-                    {
-                        "Name": "vstsUrl",
-                        "Value": "[parameters('vstsUrl')]",
-                        "TypeName": "System.String"
-                    }
-                ]
+ "Properties": {}
+               
             },
             "protectedSettings": {
             }
           }
-        }
+        },
+        {
+    "name": "[concat(variables('vmName'),'/TeamServicesAgent')]",
+    "type": "Microsoft.Compute/virtualMachines/extensions",
+    "location": "[resourceGroup().location]",
+    "apiVersion": "2015-06-15",
+    "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
+    ],
+    "properties": {
+      "publisher": "Microsoft.VisualStudio.Services",
+      "type": "TeamServicesAgent",
+      "typeHandlerVersion": "1.0",
+      "autoUpgradeMinorVersion": true,
+      "settings": {
+        "VSTSAccountName": "[parameters('vstsAccountName')]",
+        "TeamProject": "[parameters('projectName')]",
+        "DeploymentGroup": "[parameters('deploymentGroup')]",
+        "AgentName": "[parameters('agentName')]",
+        "Tags": "[parameters('tags')]"
+      },
+      "protectedSettings": {
+      "PATToken": "[parameters('patToken')]"
+     }
+   }
+  }
       ]
     }
   ]
